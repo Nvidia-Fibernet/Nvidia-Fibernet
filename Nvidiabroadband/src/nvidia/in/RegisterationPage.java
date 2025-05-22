@@ -1,4 +1,4 @@
-package tyss.in;
+package nvidia.in;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,14 +29,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-public class UserRegistration extends JFrame
+public class RegisterationPage extends JFrame
 {
 	private JTextField usernameTextField, mobileNumberTextField;
 	private JComboBox<String> cityComboBox;
 	private JCheckBox termBox;
 	private JButton signUp,signIn;
 	
-	public UserRegistration()
+	public RegisterationPage()
 	{
 		setUpFrame();
 		initializeComponents();
@@ -159,9 +159,11 @@ public class UserRegistration extends JFrame
 		createStyledComboBox(cityComboBox);
 		
 		termBox = createStyledCheckBox("I Agree to the terms and Conditions");
+		Color baseColor = new Color(128, 128, 128); // Standard grey
+
 		
-		signUp = createStyledButton("Sign Up", new Color(30, 144, 255));
-		signIn = createStyledButton("Sign In", new Color(220, 20, 60));
+		signUp = createStyledButton("Sign Up", baseColor);
+		signIn = createStyledButton("Sign In", baseColor);
 	}
 	
 	private JCheckBox createStyledCheckBox(String text)
@@ -173,49 +175,43 @@ public class UserRegistration extends JFrame
 		return checkBox;
 	}
 
-	 public JButton createStyledButton(String buttonTitle, Color color) 
-	 {
-	        JButton button = new JButton(buttonTitle);
-	        button.setFont(new Font("Arial", Font.BOLD, 15));
-	        button.setBackground(Color.white);
-	        button.setForeground(Color.black);
+	public JButton createStyledButton(String buttonTitle, Color baseColor) {
+	    JButton button = new JButton(buttonTitle);
+	    button.setFont(new Font("Arial", Font.BOLD, 15));
+	    button.setForeground(Color.white);  // White text
+	    button.setBackground(baseColor);    // Base grey color
 
-	        button.setBorder(BorderFactory.createCompoundBorder(
-	            BorderFactory.createLineBorder(color.darker(), 3),
-	            BorderFactory.createEmptyBorder(12, 25, 12, 25)
-	        ));
-	        button.setBackground(color);
+	    Color hoverColor = baseColor.brighter();  // Light grey on hover
+	    Color borderColor = Color.white;          // White border
 
-	        button.addMouseListener(new MouseAdapter() {
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	            	button.setBorder(BorderFactory.createCompoundBorder(
-	                        BorderFactory.createLineBorder(color.brighter(), 3),
-	                        BorderFactory.createEmptyBorder(12, 25, 12, 25)
-	                    ));
-	            	button.setBackground(color.darker());
-	            }
+	    button.setBorder(BorderFactory.createCompoundBorder(
+	        BorderFactory.createLineBorder(borderColor, 2),
+	        BorderFactory.createEmptyBorder(12, 25, 12, 25)
+	    ));
 
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	            	button.setBorder(BorderFactory.createCompoundBorder(
-	                        BorderFactory.createLineBorder(color.darker(), 3),
-	                        BorderFactory.createEmptyBorder(12, 25, 12, 25)
-	                    ));
-	            	button.setBackground(color);
-	            }
-	        });
-	        
-	        button.setFocusPainted(false);
-	        button.setBorderPainted(true);
-	        button.setOpaque(true);
-	        button.setContentAreaFilled(true);
-	        button.setAlignmentX(JButton.CENTER_ALIGNMENT);
-	        button.setPreferredSize(new Dimension(300, 50));
-	        button.setMaximumSize(new Dimension(300, 50));
+	    button.addMouseListener(new MouseAdapter() {
+	        @Override
+	        public void mouseEntered(MouseEvent e) {
+	            button.setBackground(hoverColor);
+	        }
 
-	        return button;
-	 }
+	        @Override
+	        public void mouseExited(MouseEvent e) {
+	            button.setBackground(baseColor);
+	        }
+	    });
+
+	    button.setFocusPainted(false);
+	    button.setBorderPainted(true);
+	    button.setOpaque(true);
+	    button.setContentAreaFilled(true);
+	    button.setAlignmentX(JButton.CENTER_ALIGNMENT);
+	    button.setPreferredSize(new Dimension(300, 50));
+	    button.setMaximumSize(new Dimension(300, 50));
+
+	    return button;
+	}
+
 	 
 	 
 	 private void setUpListeners()
@@ -345,11 +341,10 @@ public class UserRegistration extends JFrame
 			
 			@Override
 			public void run() {
-				new UserRegistration();
+				new RegisterationPage();
 				
 			}
 		});
 	}
 	
 }
-
